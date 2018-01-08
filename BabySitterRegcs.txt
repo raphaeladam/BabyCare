@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace BabySitter
+{
+    public partial class BabySitterReg : System.Web.UI.Page
+    {
+        DataConnectionDataContext dc;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            dc = Connection.GetDataContextInstance();
+        }
+
+        protected void addBabySitter_Click(object sender, EventArgs e)
+        {
+
+            BabySitter bs1 = new BabySitter();
+            User u1 = new User();
+            try
+            {
+                u1.UserName = userName.Text;
+                u1.Password = password.Text;
+                bs1.UserName = userName.Text;
+                bs1.FirstName = fName.Text;
+                bs1.LastName = lastName.Text;
+                bs1.StreetName = streetName.Text;
+                bs1.StreetNumber = int.Parse(streetNumber.Text);
+                bs1.City = cities.Text;
+                bs1.Email = Email.Text;
+                bs1.PhoneNumber = phone.Text;
+                bs1.BirthDate = DateTime.Parse(birthDate.Text);
+                dc.BabySitters.InsertOnSubmit(bs1);
+                dc.Users.InsertOnSubmit(u1);
+                dc.SubmitChanges();
+                ScriptManager.RegisterStartupScript(this, GetType(), "theAlertName", "alert(\"Updated Succesfull!\");", true);
+            }
+            catch
+            {
+                if (userName.Text == "" || password.Text == "" || fName.Text == "" || lastName.Text == "" || streetName.Text == "" || streetNumber.Text == "" || cities.Text == "" || Email.Text == "" || phone.Text == "" || birthDate.Text == "")
+                    ScriptManager.RegisterStartupScript(this, GetType(), "theAlertName", "alert(\"Please Fill All Areas!\");", true);
+                else
+                    ScriptManager.RegisterStartupScript(this, GetType(), "theAlertName", "alert(\"User Allready Exist!\");", true);
+            }
+        }
+
+        protected void birthDate_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

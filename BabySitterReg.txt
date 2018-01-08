@@ -1,0 +1,104 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BabySitterReg.aspx.cs" Inherits="BabySitter.BabySitterReg" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Baby Sitter Registration</title>
+      <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css"> 
+
+         .navbar-inverse
+        {
+            background-color:skyblue;
+            border-color:azure;
+            color:white;
+        }
+ 
+         .nav.navbar-nav li a
+        {
+            color:white;
+        }
+         .nav.navbar-nav li a:hover
+        {
+            color:dimgray;
+        }
+
+    </style>
+</head>
+<body>
+        <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" style="color:white">BabyCare</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Our Babysitters</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+  </div>
+</nav>
+    <form id="BabySitterReg" runat="server">
+        Baby Sitter Registration:
+    <div>
+        <table>
+            <tr>
+                <td>User Name: </td>
+                <td><asp:TextBox ID="userName" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td><asp:TextBox ID="password" runat="server" textmode="password" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td>First Name: </td>
+                <td><asp:TextBox ID="fName" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td> Last Name:</td>
+                <td><asp:TextBox ID="lastName" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td>Street Name:</td>
+                <td><asp:TextBox ID="streetName" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td> Street Number:</td>
+                <td><asp:TextBox ID="streetNumber" runat="server" textmode="number" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td> City: </td>
+                <td><asp:DropDownList ID="cities" runat="server" DataSourceID="SqlDataSource1" DataTextField="City" DataValueField="City" CssClass="form-control">
+                     </asp:DropDownList>
+                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BabySitterConnectionString %>" SelectCommand="SELECT [City] FROM [Cities] ORDER BY [City]"></asp:SqlDataSource></td>
+            </tr>
+            <tr>
+                <td>E-MAIL:</td>
+                <td><asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td> Phone:</td>
+                <td><asp:TextBox ID="phone" runat="server" CssClass="form-control"></asp:TextBox></td>
+            </tr>
+            <tr>
+                <td> Birth Date:</td>
+                <td><asp:TextBox ID="birthDate" runat="server" textmode="date" OnTextChanged="birthDate_TextChanged" CssClass="form-control"></asp:TextBox></td>
+            </tr> 
+            <tr>
+                <td colspan="2"><asp:Button ID="addBabySitter" runat="server" Text="AddBabySitter" OnClick="addBabySitter_Click" cssClass="btn btn-info"/></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>
