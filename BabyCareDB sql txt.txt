@@ -391,3 +391,8 @@ alter column EndingTime DateTime;
 --what for???
 alter table Invitation
 drop column InvitationDate;
+
+
+
+alter TABLE Invitation 
+DROP constraint FK1;
