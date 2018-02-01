@@ -1,0 +1,39 @@
+
+alter table BabySitterInvitation
+alter column ActualDate DateTime;
+
+alter table BabySitterInvitation
+alter column StartingTime DateTime;
+
+alter table BabySitterInvitation
+alter column EndingTime DateTime;
+
+alter table BabySitterInvitation
+add price Int;
+
+
+--add to the db
+alter table Invitation
+add parentUserName [nvarchar](50) NOT NULL;
+
+--add to the db
+ALTER TABLE Invitation  ADD  
+CONSTRAINT FK_Parent_Invitation_Constraint FOREIGN KEY(parentUserName)
+REFERENCES Parent(UserName);
+
+-- delete the last name column from invitation
+alter table Invitation
+add price Int;
+
+
+alter table Invitation
+alter column ActualDate DateTime;
+
+alter table Invitation
+alter column StartingTime DateTime;
+
+alter table Invitation
+alter column EndingTime DateTime;
+--what for???
+alter table Invitation
+alter column InvitationDate DateTime;
