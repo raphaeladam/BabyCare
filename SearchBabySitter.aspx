@@ -8,6 +8,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
+
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
+
+      <link rel="stylesheet" href="css/style.css"/>
+    <script src="index1.js"></script>
+    <link rel="stylesheet" href="css/style1.css"/>
 </head>
 <body>
     <form id="SearchBabySitter" runat="server">
@@ -15,29 +22,30 @@
             <table>
                 <tr>
                     <td colspan =" 4" align="center">
-                        <h3 style="color:darksalmon"> Find the best Babysitter for your child:</h3>
+                        <h4> Find the best Babysitter for your child:</h4>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        From*</td>
+                    <td style="color:darkblue">
+                     
+                        From</td>
                     <td>
 
                         <asp:TextBox ID="from_textbox" runat="server" ></asp:TextBox>
 
                     </td>
                 
-                    <td>
+                    <td style="color:darkblue">
                        
-                        To*</td>
+                        To</td>
                     <td>
                         <asp:TextBox ID="to_textbox" runat="server"></asp:TextBox>
                        </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="color:darkblue">
                         <asp:Label ID="Label1" runat="server" Text="City"></asp:Label>
-                        *<asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:BabySitterConnectionString %>" SelectCommand="SELECT DISTINCT [city] FROM [Babysitters] ORDER BY [city]"></asp:SqlDataSource>
+                        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:BabySitterConnectionString %>" SelectCommand="SELECT DISTINCT [city] FROM [Babysitters] ORDER BY [city]"></asp:SqlDataSource>
                     </td>
                     <td>
                         <asp:DropDownList ID="city_DropDownList" runat="server" DataSourceID="SqlDataSource1" DataTextField="City" DataValueField="City">
@@ -46,24 +54,24 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                     <td style="color:darkblue">
                         <asp:Label ID="Label2" runat="server" Text="Price per hour"></asp:Label>
                         : less than</td>
                     <td>
                         <asp:TextBox ID="price_TextBox1" runat="server"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Label ID="Label3" runat="server" Text="NIS"></asp:Label>
+                        <asp:Label ID="Label3" style="color:darkblue" runat="server" Text="NIS"></asp:Label>
                     &nbsp;</td>
                 </tr>
                 <tr>
                     <td colspan =" 4" align="center">
-                            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+                            <asp:Button ID="Button1" runat="server" style="color:darkblue" OnClick="Button1_Click"  ForeColor="#6699FF" BorderColor="#000099" Text="Search" />
                     </td>
                 </tr>
             </table>
        
-    // add db contact
+  
         <asp:ListView ID="ListView1" runat="server" 
             DataSourceID="SqlDataSource3"  Visible="False" DataKeyNames="InvitationNumber">
             <AlternatingItemTemplate>

@@ -20,8 +20,8 @@ namespace BabyCareProject
                 //  this.from_textbox.Text = (DateTime.Today.ToLongTimeString());
                 //  this.to_textbox.Text = (DateTime.Today.ToShortDateString()) + " 0:00:00";
 
-                this.from_textbox.Text = DateTime.Now.ToString("yyyy-mm-dd hh:mm ");
-                this.to_textbox.Text = DateTime.Now.ToString("yyyy-mm-dd hh:mm");
+                this.from_textbox.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm ");
+                this.to_textbox.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm");
             }
         }
 
