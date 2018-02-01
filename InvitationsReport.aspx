@@ -20,7 +20,7 @@
             <table>
                 <tr>
                     <td colspan =" 4" align="center">
-                        <h3 style="color:darkblue"> Show all invitations</h3>
+                        <h4> Show all invitations</h4>
                     </td>
                 </tr>
                 <tr>
