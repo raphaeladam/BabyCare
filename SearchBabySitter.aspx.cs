@@ -10,6 +10,7 @@ namespace BabyCareProject
     public partial class SearchBabySitter : System.Web.UI.Page
     {
         BSDataContext dc;
+ //       ListViewItem lastItem = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,6 +23,7 @@ namespace BabyCareProject
 
                 this.from_textbox.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm ");
                 this.to_textbox.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm");
+                
             }
         }
 
@@ -69,8 +71,102 @@ namespace BabyCareProject
             //   ListViewItem lvi = new ListViewItem(babysitterAvailability);
 
             this.ListView1.Visible = true;
-
+          
 
         }
+
+        protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //let only one check item!!!! - add code! doesn't work:
+            //if (e.NewValue == CheckState.Checked)
+            //    for (int ix = 0; ix < checkedListBox1.Items.Count; ++ix)
+            //        if (e.Index != ix) checkedListBox1.SetItemChecked(ix, false);
+            
+           
+
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+
+        {
+
+            int count = 0;
+            foreach (ListViewItem itm in ListView1.Items)
+            {
+                CheckBox cb = (CheckBox)itm.FindControl("CheckBox2");
+                if (cb.Checked)
+                    count++;
+                if (count > 1)
+                {
+
+
+               //     ((CheckBox)itm.FindControl("CheckBox2")).Checked = false;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('You can choose only one babysitter');", true);
+                
+                    return;
+                }
+            }
+
+            foreach (ListViewItem itm in ListView1.Items)
+            {
+                CheckBox cb = (CheckBox)itm.FindControl("CheckBox2");
+                if (cb.Checked)
+                {
+          
+                  
+                    Label c = (Label)itm.FindControl("UserNameLabel");
+                    this.bdika.Text = c.Text;
+                    try
+                    {
+                        DateTime fromDT = DateTime.Parse(this.from_textbox.Text);
+                        DateTime toDT = DateTime.Parse(this.to_textbox.Text);
+
+
+                        //creating a new invitation. we can add an approve of the castumer before doing it
+                        Invitation ans = new Invitation();
+                        ans.UserName = ((Label)itm.FindControl("UserNameLabel")).Text;
+                        ans.price = int.Parse(((Label)itm.FindControl("priceLabel")).Text);
+                        ans.Status = "waiting for babysitter's approval";
+                        ans.ActualDate = DateTime.Now;
+                        ans.StartingTime = fromDT;
+                        ans.EndingTime = toDT;
+                        ans.InvitationDate = DateTime.Now;
+                        ans.parentUserName = "Miki"; // change!!!!! get the userName from Raphael!!!!
+
+                        
+                        //      ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('Are you sure?');", true);
+                        dc.Invitations.InsertOnSubmit(ans);
+                        dc.SubmitChanges();
+
+
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('The invitation has been sent to the babysitter');", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alert", "alert('Invalid date');", true);
+                        return;
+                    }
+                   
+                   
+                
+                }
+            }
+        }
+           
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
 }

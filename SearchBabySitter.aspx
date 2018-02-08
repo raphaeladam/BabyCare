@@ -7,7 +7,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>search for a babysitter</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
 
   <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'/>
@@ -20,8 +20,9 @@
     <form id="SearchBabySitter" runat="server">
         <div>
             <table>
+                
                 <tr>
-                    <td colspan =" 4" align="center">
+                    <asp:CheckBox ID="CheckBox2" runat="server" /><td colspan =" 4" align="center">
                         <h4> Find the best Babysitter for your child:</h4>
                     </td>
                 </tr>
@@ -62,7 +63,9 @@
                     </td>
                     <td>
                         <asp:Label ID="Label3" style="color:darkblue" runat="server" Text="NIS"></asp:Label>
-                    &nbsp;</td>
+                  
+                      
+                     </td>
                 </tr>
                 <tr>
                     <td colspan =" 4" align="center">
@@ -73,12 +76,17 @@
        
   
         <asp:ListView ID="ListView1" runat="server" 
-            DataSourceID="SqlDataSource3"  Visible="False" DataKeyNames="InvitationNumber">
+            DataSourceID="SqlDataSource3"  Visible="False" DataKeyNames="InvitationNumber,UserName" OnSelectedIndexChanged="ListView1_SelectedIndexChanged">
             <AlternatingItemTemplate>
-                <tr style="background-color: #FFFFFF; color: #284775;">
+                <tr style="">
+<%--         how to add check boxes?????
+  --%>
+            
                     <td>
                         <asp:Label ID="InvitationNumberLabel" runat="server" Text='<%# Eval("InvitationNumber") %>' />
                     </td>
+
+
                     <td>
                         <asp:Label ID="StatusLabel" runat="server" Text='<%# Eval("Status") %>' />
                     </td>
@@ -97,10 +105,16 @@
                     <td>
                         <asp:Label ID="EndingTimeLabel" runat="server" Text='<%# Eval("EndingTime") %>' />
                     </td>
+                    <td>
+                        <asp:Label ID="priceLabel" runat="server" Text='<%# Eval("price") %>' />
+                    </td>
+                      <td>
+                      <asp:CheckBox ID="CheckBox2" runat="server" Width="50px" Text="choose" />
+                    </td>
                 </tr>
             </AlternatingItemTemplate>
             <EditItemTemplate>
-                <tr style="background-color: #999999;">
+                <tr style="">
                     <td>
                         <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Update" />
                         <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancel" />
@@ -112,7 +126,7 @@
                         <asp:TextBox ID="StatusTextBox" runat="server" Text='<%# Bind("Status") %>' />
                     </td>
                     <td>
-                        <asp:TextBox ID="UserNameTextBox" runat="server" Text='<%# Bind("UserName") %>' />
+                        <asp:Label ID="UserNameLabel1" runat="server" Text='<%# Eval("UserName") %>' />
                     </td>
                     <td>
                         <asp:TextBox ID="LastNameTextBox" runat="server" Text='<%# Bind("LastName") %>' />
@@ -126,10 +140,19 @@
                     <td>
                         <asp:TextBox ID="EndingTimeTextBox" runat="server" Text='<%# Bind("EndingTime") %>' />
                     </td>
+                    <td>
+                        <asp:TextBox ID="priceTextBox" runat="server" Text='<%# Bind("price") %>' />
+                    </td>
+                    <td>
+                      <asp:CheckBox ID="CheckBox2" runat="server" Width="50px" Text="choose" />
+                    </td>
+
+                <%--    2018-12-12 07:32 --%>
+                    
                 </tr>
             </EditItemTemplate>
             <EmptyDataTemplate>
-                <table runat="server" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;">
+                <table runat="server" style="">
                     <tr>
                         <td>No data was returned.</td>
                     </tr>
@@ -162,10 +185,16 @@
                     <td>
                         <asp:TextBox ID="EndingTimeTextBox" runat="server" Text='<%# Bind("EndingTime") %>' />
                     </td>
+                    <td>
+                        <asp:TextBox ID="priceTextBox" runat="server" Text='<%# Bind("price") %>' />
+                    </td>
+                    <td>
+                      <asp:CheckBox ID="CheckBox2" runat="server" Width="50px" Text="choose" />
+                    </td>
                 </tr>
             </InsertItemTemplate>
             <ItemTemplate>
-                <tr style="background-color: #E0FFFF; color: #333333;">
+                <tr style="">
                     <td>
                         <asp:Label ID="InvitationNumberLabel" runat="server" Text='<%# Eval("InvitationNumber") %>' />
                     </td>
@@ -181,12 +210,20 @@
                     <td>
                         <asp:Label ID="ActualDateLabel" runat="server" Text='<%# Eval("ActualDate") %>' />
                     </td>
+                    
                     <td>
                         <asp:Label ID="StartingTimeLabel" runat="server" Text='<%# Eval("StartingTime") %>' />
                     </td>
                     <td>
                         <asp:Label ID="EndingTimeLabel" runat="server" Text='<%# Eval("EndingTime") %>' />
                     </td>
+                    <td>
+                        <asp:Label ID="priceLabel" runat="server" Text='<%# Eval("price") %>' />
+                    </td>
+                    <td>
+                      <asp:CheckBox ID="CheckBox2" runat="server" Width="50px" Text="choose"  />
+                    </td>
+                   
                 </tr>
             </ItemTemplate>
 
@@ -194,15 +231,16 @@
                 <table runat="server">
                     <tr runat="server">
                         <td runat="server">
-                            <table id="itemPlaceholderContainer" runat="server" border="1" style="background-color: #FFFFFF;border-collapse: collapse;border-color: #999999;border-style:none;border-width:1px;font-family: Verdana, Arial, Helvetica, sans-serif;">
-                                <tr runat="server" style="background-color: #E0FFFF; color: #333333;">
+                            <table id="itemPlaceholderContainer" runat="server" border="0" style="">
+                                <tr runat="server" style="">
                                     <th runat="server">InvitationNumber</th>
-                                     <th runat="server">Status</th>
+                                    <th runat="server">Status</th>
                                     <th runat="server">UserName</th>
                                     <th runat="server">LastName</th>
                                     <th runat="server">ActualDate</th>
                                     <th runat="server">StartingTime</th>
                                     <th runat="server">EndingTime</th>
+                                    <th runat="server">price</th>
                                 </tr>
                                 <tr id="itemPlaceholder" runat="server">
                                 </tr>
@@ -210,20 +248,12 @@
                         </td>
                     </tr>
                     <tr runat="server">
-                        <td runat="server" style="text-align: center;background-color: #5D7B9D; font-family: Verdana, Arial, Helvetica, sans-serif;color: #FFFFFF;">
-                            <asp:DataPager ID="DataPager1" runat="server">
-                                <Fields>
-                                    <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                                    <asp:NumericPagerField />
-                                    <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="True" ShowNextPageButton="False" ShowPreviousPageButton="False" />
-                                </Fields>
-                            </asp:DataPager>
-                        </td>
+                        <td runat="server" style=""></td>
                     </tr>
                 </table>
             </LayoutTemplate>
             <SelectedItemTemplate>
-                <tr style="background-color: #E2DED6; font-weight: bold;color: #333333;">
+                <tr style="">
                     <td>
                         <asp:Label ID="InvitationNumberLabel" runat="server" Text='<%# Eval("InvitationNumber") %>' />
                     </td>
@@ -245,9 +275,17 @@
                     <td>
                         <asp:Label ID="EndingTimeLabel" runat="server" Text='<%# Eval("EndingTime") %>' />
                     </td>
+                    <td>
+                        <asp:Label ID="priceLabel" runat="server" Text='<%# Eval("price") %>' />
+                    </td>
+                     
                 </tr>
             </SelectedItemTemplate>
         </asp:ListView>
+
+
+
+            <asp:Button ID="inviteBabysitter_btn" runat="server" OnClick="Button2_Click" Text="Invite Babysitter" onclientclick="return confirm('Are you sure you want to save selected records?');" />
 
 
 
@@ -262,7 +300,7 @@
 
 
 
-        
+            <asp:Label ID="bdika" runat="server" Text="Label"></asp:Label>
     
          </div>
          </form>
